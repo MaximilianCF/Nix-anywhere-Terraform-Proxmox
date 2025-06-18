@@ -11,7 +11,7 @@ provider "proxmox" {
   endpoint = var.pm_api_url
   username = var.pm_user
   password = var.pm_password
-  insecure = true  # ou false, se tiver cert valido
+  insecure = true  
 }
 
 resource "proxmox_vm_qemu" "vm_cloudinit" {
@@ -37,7 +37,7 @@ resource "proxmox_vm_qemu" "vm_cloudinit" {
 
   ssh_keys = file("~/.ssh/id_rsa.pub")  # chave local
   ciuser   = "root"
-  cipassword = ""  # pode deixar em branco se usar só SSH
+  cipassword = "" 
 
   cloudinit_cdrom_storage = var.pm_storage
   os_type = "cloud-init"
