@@ -20,7 +20,7 @@
 - terraform plan\
 - terraform apply
 
-**6) Após o comando "terraform apply", rodar:**\
+**6) Após o comando "terraform apply", rodar:**
 - nix run github:nix-community/nix-anywhere -- --flake .#<hostname> root@<ip-da-vm>
 
 **7) Estrutura do diretório:**\
