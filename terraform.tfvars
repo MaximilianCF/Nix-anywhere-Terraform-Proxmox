@@ -1,0 +1,7 @@
+pm_api_url     = "https://<ip-do-proxmox>:8006/api2/json"
+pm_user        = "root@pam"
+pm_password    = "minha-senha-supersecreta"
+pm_node        = "pve"
+template_name  = "ubuntu-cloudinit"
+pm_storage     = "local-lvm"
+network_bridge = "vmbr0"
