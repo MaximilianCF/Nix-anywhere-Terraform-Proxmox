@@ -1,0 +1,54 @@
+# .github/workflows/deploy.yml
+
+name: Deploy VM com NixOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+
+    env:
+      PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+      PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
+      PROXMOX_PASSWORD: ${{ secrets.PROXMOX_PASSWORD }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Instalar dependências
+        run: |
+          sudo apt update
+          sudo apt install -y ssh curl jq unzip
+          nix-env -iA nixpkgs.nix nixpkgs.git
+
+      - name: Iniciar Terraform
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve \
+            -var "proxmox_host=$PROXMOX_HOST" \
+            -var "proxmox_user=$PROXMOX_USER" \
+            -var "proxmox_password=$PROXMOX_PASSWORD"
+
+      - name: Capturar IP da VM criada
+        id: get-ip
+        run: |
+          cd terraform
+          echo "ip=$(terraform output -raw vm_ip)" >> $GITHUB_OUTPUT
+
+      - name: Instalar NixOS com nix-anywhere
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          chmod 600 id_rsa
+
+          export IP=${{ steps.get-ip.outputs.ip }}
+
+          nix run github:nix-community/nix-anywhere -- \
+            --flake ./nix#vm-nix \
+            --ssh-opts "-o StrictHostKeyChecking=no -i ./id_rsa" \
+            root@$IP
