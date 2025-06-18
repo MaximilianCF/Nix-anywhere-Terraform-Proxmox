@@ -3,7 +3,7 @@
 **<h3>1) Baixar a imagem cloud-init para usar como template no Proxmox:</h3>**
 ```wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img```
 
-**<h3>2) Subir a imagem acima para o Proxmox:</h3>**
+**<h3>2) Com login root no terminal da máquina local, subir a imagem acima para o Proxmox:</h3>**
 ```qm create 9000 --name ubuntu-cloudinit --memory 2048 --net0 virtio,bridge=vmbr0```\
 ```qm importdisk 9000 ubuntu-cloudimg.img local-lvm```\
 ```qm set 9000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9000-disk-0```\
@@ -18,7 +18,7 @@
 **<h3>4) Referenciar o nome do template no main.tf</h3>**
 
 **<h3>5) Comandos para rodar o Terraform na máquina local:</h3>**
-```terraform init```\
+```- terraform init```\
 ```- terraform plan```\
 ```- terraform apply```
 
