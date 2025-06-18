@@ -15,3 +15,5 @@
 - PROXMOX_PASSWORD ou PROXMOX_API_TOKEN
 - SSH_PRIVATE_KEY → chave para login SSH via root
 - SSH_PUBLIC_KEY → injetada no cloud-init e flake
+
+![image](https://github.com/user-attachments/assets/591480c3-1918-492e-8e87-be19a9cce449)
