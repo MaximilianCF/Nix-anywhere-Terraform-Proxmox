@@ -14,7 +14,7 @@
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 
   environment.systemPackages = with pkgs; [
     git
@@ -22,8 +22,4 @@
     htop
     curl
   ];
-
-  # Se quiser desktop: 
-  # services.xserver.enable = true;
-  # services.xserver.windowManager.qtile.enable = true;
 }
