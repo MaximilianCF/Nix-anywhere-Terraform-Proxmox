@@ -1,5 +1,5 @@
 **1) Baixar a imagem cloud-init para usar como template no Proxmox:**
-- wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img -O ubuntu-cloudimg.img
+- wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
 
 **2) Subir a imagem acima para o Proxmox:**
 - qm create 9000 --name ubuntu-cloudinit --memory 2048 --net0 virtio,bridge=vmbr0
